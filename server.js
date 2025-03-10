@@ -8,7 +8,7 @@ import cadastrarRouter from './router/cadastrarRouter.js';
 import incendioRouter from './router/incendioRouter.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import db from "./src/config/firebaseConfig.js";
+import db from "./src/model/firebaseConfig.js";
 
 
 conectar();

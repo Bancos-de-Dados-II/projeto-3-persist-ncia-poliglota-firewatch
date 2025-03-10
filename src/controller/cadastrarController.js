@@ -1,4 +1,4 @@
-import db from "../config/firebaseConfig.js";
+import db from "../model/firebaseConfig.js";
 
 // Validador de CPF
 class ValidaCPF {
@@ -80,6 +80,12 @@ export async function salvarDadosCadastro(req, res) {
     try {
         // Referência à coleção "cadastrar"
         const userRef = db.collection("cadastrar").doc(cpf);
+        const doc = await userRef.get();
+
+        if (doc.exists) {
+            return res.status(400).send({ message: 'Este CPF já está cadastrado.' });
+        }
+
         await userRef.set({ nome, cpf, email, senha });
 
         res.status(201).send({ message: 'Usuário cadastrado com sucesso!' });
