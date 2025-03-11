@@ -1,8 +1,10 @@
 import express from 'express';
-import { minhaAjuda, alertarIncendio, salvarLocalizacao, listarTodosIncendio, detalhesIncendios, adicionarIncendio, deletarIncendio } from "../src/controller/incendioController.js";
+import { minhaAjuda, alertarIncendio, salvarLocalizacao, listarTodosIncendio, detalhesIncendios, adicionarIncendio, deletarIncendio, carregarGraficoIncendiosPorCidade, carregarGraficoIncendiosPorGravidade } from "../src/controller/incendioController.js";
 
 const incendioRouter = express.Router();
 
+incendioRouter.get("/api/incendios/por-cidade", carregarGraficoIncendiosPorCidade);
+incendioRouter.get("/api/incendios/por-gravidade", carregarGraficoIncendiosPorGravidade);
 incendioRouter.get('/api/minhaAjuda', minhaAjuda);
 incendioRouter.post('/alertarIncendio', alertarIncendio);
 incendioRouter.post('/incendios', salvarLocalizacao);

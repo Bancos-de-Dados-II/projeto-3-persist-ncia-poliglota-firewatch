@@ -133,3 +133,37 @@ export async function deletarIncendio(req, res){
       }
 };
 
+export async function carregarGraficoIncendiosPorCidade (req, res){
+    try {
+        const resultado = await Incendio.aggregate([
+            { $group: { _id: "$cidade", total: { $sum: 1 } } }
+        ]);
+
+        if (!resultado || resultado.length === 0) {
+            return res.status(404).json({ erro: "Nenhum dado encontrado" });
+        }
+
+        res.json(resultado);
+    } catch (error) {
+        console.error("Erro ao buscar incêndios por cidade:", error);
+        res.status(500).json({ erro: "Erro no servidor", detalhe: error.message });
+    }
+};
+
+export async function carregarGraficoIncendiosPorGravidade (req, res){
+    try {
+        const resultado = await Incendio.aggregate([
+            { $group: { _id: "$gravidade", total: { $sum: 1 } } }
+        ]);
+
+        if (!resultado || resultado.length === 0) {
+            return res.status(404).json({ erro: "Nenhum dado encontrado" });
+        }
+
+        res.json(resultado);
+    } catch (error) {
+        console.error("Erro ao buscar incêndios por gravidade:", error);
+        res.status(500).json({ erro: "Erro no servidor", detalhe: error.message });
+    }
+};
+
